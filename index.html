@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sunflower Program</title>
+<style>
+  body {
+    margin: 0;
+    background: black;
+    color: #00ff9c;
+    font-family: monospace;
+    padding: 20px;
+  }
+  #terminal {
+    white-space: pre-wrap;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .yellow { color: #ffd000; }
+  .green { color: #00ff00; }
+  .brown { color: #c68642; }
+</style>
+</head>
+<body>
+<audio id="music" autoplay loop>
+  <source src="music.mp3" type="audio/mpeg" />
+</audio>
+
+<div id="terminal"></div>
+
+<script>
+const terminal = document.getElementById("terminal");
+
+const cCode = `#include <stdio.h>\n#include <unistd.h>\n\n#define YELLOW  "\\033[33m"\n#define BROWN   "\\033[38;5;94m"\n#define GREEN   "\\033[32m"\n#define RESET   "\\033[0m"\n\nint main() {\n    printf("Compiling courage...\\n");\n    sleep(3);\n    printf("Linking memories...\\n");\n    sleep(3);\n    printf("\\nHardavi,\\n");\n    sleep(3);\n    printf("I loved you long before I knew what love was.\\n");\n    sleep(3);\n    printf("Some bugs never get fixed.\\n");\n    printf("Some feelings never change.\\n");\n}\n`;
+
+const outputText = `Compiling courage...
+Linking memories...
+
+Hardavi,
+I loved you long before I knew what love was.
+Some bugs never get fixed.
+Some feelings never change.
+
+        _\\|/_                      _\\|/_
+        (  *  )                    (  *  )
+     ---(@@@)---                ---(@@@)---
+        (  *  )                    (  *  )
+        _/|\\_                      _/|\\_
+
+           |                          |
+           |                          |
+           |                          |
+       ____/ \\____              ____/ \\____
+           |                          |
+           |                          |
+`;
+
+let speed = 20;
+
+function typeText(text, callback) {
+  let i = 0;
+  const interval = setInterval(() => {
+    terminal.textContent += text.charAt(i);
+    i++;
+    window.scrollTo(0, document.body.scrollHeight);
+    if (i >= text.length) {
+      clearInterval(interval);
+      if (callback) callback();
+    }
+  }, speed);
+}
+
+function startProgram() {
+  typeText(cCode, () => {
+    setTimeout(() => {
+      terminal.textContent = "";
+      typeText(outputText);
+    }, 1000);
+  });
+}
+
+// Mobile autoplay fix
+window.addEventListener("click", () => {
+  document.getElementById("music").play();
+}, { once: true });
+
+startProgram();
+</script>
+</body>
+</html>
